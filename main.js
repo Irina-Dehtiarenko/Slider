@@ -1,33 +1,40 @@
 const articles = [
     {
         title: 'Kotek poważny',
-        img: 'https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_960_720.jpg',
+        img: './img/kotek_powazny.jpg',
     },
     {
         title: 'Kotek śpiący',
-        img: 'https://cdn.pixabay.com/photo/2016/12/30/17/27/cat-1941089_960_720.jpg',
+        img: './img/kotek_spiacy.jpg',
     },
     {
         title: 'Kotek uroczy',
-        img: 'https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_960_720.jpg',
+        img: './img/kotek_uroczy.jpg',
     },
 
 ];
 
 const h1 = document.querySelector('h1');
-const image = document.querySelector('img');
+const image = document.querySelector('div.img');
+let spans = [...document.querySelectorAll('span')];
 
-let index = 0;
 
+let active = 0;
+
+h1.textContent = articles[active].title;
 
 const intervalIndex = setInterval(()=>{
-    if(index >= articles.length){
-        index = 0;
+    spans[active].classList.remove('active')
+    active++
+    
+
+    if(active === articles.length){
+        active = 0;
+        
         // return clearInterval(intervalIndex)
     }
-
-    h1.innerHTML = articles[index].title
-    image.src = articles[index].img
-    index++
+    spans[active].classList.add('active')
+    h1.innerHTML = articles[active].title
+    image.style.backgroundImage = `url(${articles[active].img})`
 
 }, 2000);
