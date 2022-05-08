@@ -46,7 +46,7 @@ const changeDot = ()=>{
 
 }
 
-const intervalIndex = setInterval(changeSlide, 2000)
+let intervalIndex = setInterval(changeSlide, 2000)
 
 
 const keyChangeSlide = e =>{
@@ -60,16 +60,17 @@ const keyChangeSlide = e =>{
                 active = 0;
         }
         if(active < 0){
-                active = 2;
+                active = articles.length-1;
         }   
 
         h1.innerHTML = articles[active].title
         image.style.backgroundImage = `url(${articles[active].img})`
         changeDot()
+        intervalIndex = setInterval(changeSlide, 2000);
         
     }
 }
 
-window.addEventListener('keydown', keyChangeSlide)
 
-setInterval(changeSlide, 2000)
+
+window.addEventListener('keydown', keyChangeSlide)
