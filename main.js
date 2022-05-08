@@ -23,27 +23,53 @@ let active = 0;
 
 h1.textContent = articles[active].title;
 
-const intervalIndex = setInterval(()=>{
-    // spans[active].classList.remove('active')
-    active++
-    
+const changeSlide = ()=>{
+   
+    active++    
 
     if(active === articles.length){
         active = 0;
         
-        // return clearInterval(intervalIndex)
     }
-    // spans[active].classList.add('active')
+    
     h1.innerHTML = articles[active].title
     image.style.backgroundImage = `url(${articles[active].img})`
     changeDot()
 
-}, 2000);
+}
 
 const changeDot = ()=>{
-    const index = spans.findIndex(span=>span.classList.contains('active'));
+    const index = spans.findIndex(span=>span.classList.contains('active')); 
     spans[index].classList.remove('active');
 
     spans[active].classList.add('active')
 
 }
+
+const intervalIndex = setInterval(changeSlide, 2000)
+
+
+const keyChangeSlide = e =>{
+
+    if(e.code === 'ArrowLeft' || e.code === 'ArrowRight'){
+        clearInterval(intervalIndex)
+
+        e.code === 'ArrowRight' ? active++ : active--
+
+        if(active === articles.length){
+                active = 0;
+        }
+        if(active < 0){
+                active = 2;
+        }   
+
+        h1.innerHTML = articles[active].title
+        image.style.backgroundImage = `url(${articles[active].img})`
+        changeDot()
+        
+    }
+}
+
+window.addEventListener('keydown', keyChangeSlide)
+
+setInterval(changeSlide, 2000)
